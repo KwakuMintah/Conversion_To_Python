@@ -1,0 +1,28 @@
+import numpy as np
+
+arrOne = np.array([1,2,3,4])
+arrTwo = np.array([5,6,7,8])
+arrThree = np.zeros(4)
+
+class oneDMat:
+    def __init__(mat, rows, cols, storage):
+        mat.rows = rows
+        mat.cols = cols
+        mat.size = rows * cols
+        mat.storage = storage
+    
+
+
+MatOne = oneDMat(2, 2, arrOne)
+MatTwo = oneDMat(2, 2, arrTwo)
+MatThree = oneDMat(2, 2, arrThree)
+
+def addition(matOne, matTwo, matThree, size):
+        for i in range(size):
+            matThree[i] = matOne[i] + matTwo[i]
+
+MatThree.storage = (addition(MatOne.storage,MatTwo.storage,MatThree.storage,4))
+
+
+print(MatOne.size)
+
