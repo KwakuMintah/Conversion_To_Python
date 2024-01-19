@@ -1,6 +1,6 @@
 import numpy as np
 
-#All of the functions operate as they should but don't exist as parameters of the class yet
+#All of the functions operate as they should but don't exist as methods of the class yet
 
 arrOne = np.array([1,2,3,4])
 arrTwo = np.array([5,6,7,8])
@@ -13,7 +13,32 @@ class oneDMat:
         mat.cols = cols
         mat.size = rows * cols
         mat.storage = storage
-    
+    def addition(mat, matOne, matTwo):
+        for i in range(mat.size):
+            mat.storage[i] = matOne.storage[i] + matTwo.storage[i] 
+    def subtraction(mat, matOne, matTwo):
+        for i in range(mat.size):
+            mat.storage[i] = matOne.storage[i] - matTwo.storage[i]
+    def multiplication(mat, matOne, matTwo):
+        for i in range(mat.rows):
+            for j in range(mat.rows):
+                for k in range(mat.rows):
+                    romOne = i * mat.rows
+                    romTwo = k * mat.rows
+                    indOne = j + romOne
+                    indTwo = k + romOne
+                    indThree = j + romOne
+                    mat.storage[indOne] += matOne.storage[indTwo] * matTwo.storage[indThree]
+    def search(mat, i_que, j_que):
+        row = i_que - 1
+        col = j_que - 1
+        rom = row * mat.rows
+        ind = col + rom
+        if ind > mat.size:
+            print("The matrix isn't that big.")
+        for i in range(mat.size):
+            if ind == i:
+                print(mat.storage[i])
 
 
 MatOne = oneDMat(2, 2, arrOne)
@@ -21,40 +46,17 @@ MatTwo = oneDMat(2, 2, arrTwo)
 MatThree = oneDMat(2, 2, arrThree)
 MatFour = oneDMat(2, 2, arrFour)
 
-def addition(matOne, matTwo, matThree, size):
-        for i in range(size):
-            matThree[i] = matOne[i] + matTwo[i]
 
-def subtraction(matOne, matTwo, matThree, size):
-        for i in range(size):
-            matThree[i] = matOne[i] + matTwo[i]
 
-def multiplication(matOne, matTwo, matThree, rows):
-    for i in range(rows):
-        for j in range(rows):
-            for k in range(rows):
-                romOne = i * rows
-                romTwo = k * rows
-                indOne = j + romOne
-                indTwo = k + romOne
-                indThree = j + romOne
-                matThree[indOne] += matOne[indTwo] * matTwo[indThree]
 
-def search(mat, oldrow, oldcol, rows, size):
-    row = oldrow - 1
-    col = oldcol - 1
-    rom = row * rows
-    ind = col + rom
-    for i in range(size):
-        if ind == i:
-            print(mat[i])
+
     
-            
-arrThree = (addition(MatOne.storage,MatTwo.storage,MatThree.storage,4))
-arrFour = (multiplication(MatOne.storage,MatTwo.storage,MatFour.storage,2))
+    
 
 
 print(MatOne.size)
+MatThree.addition(MatOne,MatTwo)
+MatFour.multiplication(MatOne,MatTwo)
 print(MatThree.storage)
 print(MatFour.storage)
-search(MatOne.storage,1,1,2,4)
+MatTwo.search(3, 6)
