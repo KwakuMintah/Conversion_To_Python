@@ -1,7 +1,5 @@
 import numpy as np
 
-#All of the functions operate as they should but don't exist as methods of the class yet
-
 arrOne = np.array([1,2,3,4])
 arrTwo = np.array([5,6,7,8])
 arrThree = np.zeros(4)
