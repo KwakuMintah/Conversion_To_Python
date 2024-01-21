@@ -1,0 +1,54 @@
+class node:
+    def __init__(node, matData):
+        node.matData = matData
+        node.prev = None
+        node.next = None
+    
+class linked_list:
+    def __init__(linked_list, size):
+        linked_list.size = size
+        linked_list.head = None
+        linked_list.sorted = None
+        linked_list.prev = None
+        linked_list.next = None
+    def push(linked_list, new_node):
+        print("Pushing...")
+        new_node.next = linked_list.head
+        linked_list.head = new_node
+    def before(linked_list, new_node, next_node):
+        print("Inserting...")
+        if next_node == None:
+            print("Error: No following node.")
+            return
+        else:
+            new_node.prev = next_node.prev
+            next_node.prev = new_node
+            new_node.next = next_node
+            if new_node.prev == None:
+                linked_list.head = new_node
+    def printFunc(linked_list, start):
+        if (linked_list.head == None):
+            print("Linked List is empty")
+            return
+        else:
+            print("Printing...")
+            while start != None:
+                print(start.matData)
+                start = start.next
+
+
+
+
+nodeOne = node(1.0)
+nodeTwo = node(2.0)
+nodeThree = node(3.0)
+nodeFour = node(4.0)
+
+matOne = linked_list(4)
+matOne.head = nodeOne
+matOne.push(nodeTwo)
+#Seems to only print nodeThree when added to the start
+matOne.before(nodeThree, nodeOne)
+matOne.printFunc(nodeTwo)
+
+
