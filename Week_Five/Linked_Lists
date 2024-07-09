@@ -8,6 +8,7 @@ class linked_list:
     def __init__(linked_list, size):
         linked_list.size = size
         linked_list.head = None
+        linked_list.tail = None
         linked_list.sorted = None
         linked_list.prev = None
         linked_list.next = None
@@ -15,6 +16,18 @@ class linked_list:
         print("Pushing...")
         new_node.next = linked_list.head
         linked_list.head = new_node
+    def end(linked_list, new_node):
+        print("Appending...")
+        if linked_list.head == None:
+            new_node.prev = None
+            linked_list.head = new_node
+        else:
+            end = linked_list.head
+            while end.next != None:
+                end = end.next
+            end.next = new_node
+            new_node.prev = end
+            linked_list.tail = new_node
     def before(linked_list, new_node, next_node):
         print("Inserting...")
         if next_node == None:
@@ -22,10 +35,55 @@ class linked_list:
             return
         else:
             new_node.prev = next_node.prev
+            next_node.prev.next = new_node
             next_node.prev = new_node
             new_node.next = next_node
             if new_node.prev == None:
                 linked_list.head = new_node
+    def after(linked_list, new_node, prev_node):
+        print("Inserting...")
+        if prev_node == None:
+            print("Error: No previous node.")
+            return
+        else:
+            new_node.next = prev_node.next
+            if prev_node.next == None:
+                prev_node.next = new_node
+                new_node.prev = prev_node
+            else:
+                prev_node.next.prev = new_node
+                prev_node.next = new_node
+                new_node.prev = prev_node
+    def insert(linked_list, new_node):
+        if linked_list.sorted == None or linked_list.sorted.matData >= new_node.matData:
+            new_node.next = linked_list.sorted
+            linked_list.sorted = new_node
+        else:
+            current_node = linked_list.sorted
+            while current_node.next != None and current_node.next.matData < new_node.matData:
+                current_node = current_node.next
+            new_node.next = current_node.next
+            current_node.next = new_node
+    def sort(linked_list):
+        print("Sorting...")
+        linked_list.sorted = None
+        current_node = linked_list.head
+        while (current_node != None):
+            next_node = current_node.next
+            linked_list.insert(current_node)
+            current_node = next_node
+        linked_list.head = linked_list.sorted
+    def count(linked_list, search):
+        current_node = linked_list.head
+        count = 0
+        while current_node != None:
+            if current_node.matData == search:
+                count = count + 1
+            current_node = current_node.next
+        if count == 1:
+            print(str(count) +" count of " + str(search))
+        else:
+            print(str(count) +" counts of " + str(search))
     def printFunc(linked_list, start):
         if (linked_list.head == None):
             print("Linked List is empty")
@@ -45,10 +103,14 @@ nodeThree = node(3.0)
 nodeFour = node(4.0)
 
 matOne = linked_list(4)
-matOne.head = nodeOne
+
 matOne.push(nodeTwo)
-#Seems to only print nodeThree when added to the start
-matOne.before(nodeThree, nodeOne)
-matOne.printFunc(nodeTwo)
+matOne.after(nodeOne,nodeTwo)
+matOne.before(nodeThree,nodeOne)
+matOne.end(nodeFour)
+matOne.printFunc(matOne.head)
+matOne.sort()
+matOne.printFunc(matOne.head)
+matOne.count(3)
 
 
